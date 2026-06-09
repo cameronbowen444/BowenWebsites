@@ -106,3 +106,13 @@
     @apply bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.20),_transparent_35%),linear-gradient(135deg,_#081824_0%,_#0f2a3d_50%,_#06111b_100%)];
   }
 }
+
+@keyframes reviewScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

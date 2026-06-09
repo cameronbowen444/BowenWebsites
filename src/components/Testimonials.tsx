@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { FiArrowUpRight, FiStar, FiUser } from "react-icons/fi";
 
 const reviews = [
@@ -49,6 +46,7 @@ const reviews = [
 ];
 
 const scrollingReviews = [...reviews, ...reviews];
+const stars = Array.from({ length: 5 });
 
 const Testimonials = () => {
   return (
@@ -57,13 +55,7 @@ const Testimonials = () => {
       className="relative overflow-hidden bg-brand px-4 py-16 text-white sm:px-6 lg:px-8"
     >
       <div className="relative z-10 mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.65 }}
-          className="relative overflow-hidden px-0 py-14 sm:px-4 lg:min-h-[680px]"
-        >
+        <div className="relative overflow-hidden px-0 py-14 sm:px-4 lg:min-h-[680px]">
           {/* Glow */}
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute left-1/2 top-0 h-[620px] w-[900px] -translate-x-1/2 rounded-full bg-accent/12 blur-3xl" />
@@ -87,7 +79,7 @@ const Testimonials = () => {
 
               <div className="relative flex h-full flex-col items-center px-7 pt-28 text-center sm:pt-32">
                 <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-accent">
-                  <FiUser />
+                  <FiUser aria-hidden="true" />
                   Client Reviews
                 </div>
 
@@ -109,15 +101,7 @@ const Testimonials = () => {
 
           {/* Sliding Review Row */}
           <div className="relative z-30 -mt-40 overflow-hidden pb-6 pt-6 sm:-mt-44 lg:-mt-48">
-            <motion.div
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{
-                duration: 70,
-                ease: "linear",
-                repeat: Infinity,
-              }}
-              className="flex w-max gap-4"
-            >
+            <div className="flex w-max gap-4 animate-[reviewScroll_70s_linear_infinite] hover:[animation-play-state:paused]">
               {scrollingReviews.map((review, index) => (
                 <article
                   key={`${review.name}-${index}`}
@@ -141,12 +125,14 @@ const Testimonials = () => {
                     </div>
 
                     <div className="flex gap-0.5 text-accent">
-  {Array.from({ length: 5 }).map((_, starIndex) => (
-    <span key={starIndex} className="fill-accent">
-      <FiStar size={12} />
-    </span>
-  ))}
-</div>
+                      {stars.map((_, starIndex) => (
+                        <FiStar
+                          key={starIndex}
+                          size={12}
+                          aria-hidden="true"
+                        />
+                      ))}
+                    </div>
                   </div>
 
                   <p className="text-sm font-medium leading-6 text-white/62">
@@ -163,12 +149,12 @@ const Testimonials = () => {
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm text-brand transition hover:rotate-45 hover:bg-accent"
                       aria-label={`Build something similar for ${review.name}`}
                     >
-                      <FiArrowUpRight />
+                      <FiArrowUpRight aria-hidden="true" />
                     </a>
                   </div>
                 </article>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           {/* Bottom CTA */}
@@ -178,10 +164,10 @@ const Testimonials = () => {
               className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-[10px] font-black uppercase tracking-[0.12em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
             >
               Build Something People Remember
-              <FiArrowUpRight />
+              <FiArrowUpRight aria-hidden="true" />
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

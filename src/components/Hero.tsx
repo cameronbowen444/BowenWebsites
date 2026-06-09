@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useAnimationFrame } from "framer-motion";
+import { useCallback, useEffect, useRef } from "react";
 
 const landingPages = [
   {
@@ -23,33 +23,59 @@ const landingPages = [
   },
 ];
 
-const COPIES = 7;
+const COPIES = 5;
 
 const repeatedPages = Array.from({ length: COPIES }, () => landingPages).flat();
 
 const Hero = () => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const [isInteracting, setIsInteracting] = useState(false);
+  const isInteractingRef = useRef(false);
+
+  const getSingleSetWidth = useCallback(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return 0;
+
+    return scroller.scrollWidth / COPIES;
+  }, []);
+
+  const keepScrollLooping = useCallback(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const singleSetWidth = getSingleSetWidth();
+    if (!singleSetWidth) return;
+
+    if (scroller.scrollLeft >= singleSetWidth * (COPIES - 1)) {
+      scroller.scrollLeft -= singleSetWidth * 2;
+    }
+
+    if (scroller.scrollLeft <= singleSetWidth * 0.5) {
+      scroller.scrollLeft += singleSetWidth * 2;
+    }
+  }, [getSingleSetWidth]);
 
   useEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
     const setToMiddle = () => {
-      const singleSetWidth = scroller.scrollWidth / COPIES;
+      const singleSetWidth = getSingleSetWidth();
+      if (!singleSetWidth) return;
+
       scroller.scrollLeft = singleSetWidth * Math.floor(COPIES / 2);
     };
 
-    const timeout = window.setTimeout(setToMiddle, 80);
+    const frame = requestAnimationFrame(setToMiddle);
 
-    return () => window.clearTimeout(timeout);
-  }, []);
+    return () => cancelAnimationFrame(frame);
+  }, [getSingleSetWidth]);
 
   useAnimationFrame(() => {
     const scroller = scrollerRef.current;
-    if (!scroller || isInteracting) return;
+    if (!scroller || isInteractingRef.current) return;
 
-    const singleSetWidth = scroller.scrollWidth / COPIES;
+    const singleSetWidth = getSingleSetWidth();
+    if (!singleSetWidth) return;
 
     scroller.scrollLeft += 0.45;
 
@@ -62,29 +88,22 @@ const Hero = () => {
     }
   });
 
-  const handleScroll = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-
-    const singleSetWidth = scroller.scrollWidth / COPIES;
-
-    if (scroller.scrollLeft >= singleSetWidth * (COPIES - 1)) {
-      scroller.scrollLeft -= singleSetWidth * 2;
-    }
-
-    if (scroller.scrollLeft <= singleSetWidth * 0.5) {
-      scroller.scrollLeft += singleSetWidth * 2;
-    }
-  };
-
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       scroller.scrollLeft += e.deltaY;
     }
-  };
+  }, []);
+
+  const startInteraction = useCallback(() => {
+    isInteractingRef.current = true;
+  }, []);
+
+  const endInteraction = useCallback(() => {
+    isInteractingRef.current = false;
+  }, []);
 
   return (
     <section
@@ -97,7 +116,7 @@ const Hero = () => {
 
       {/* Header */}
       <div className="relative z-10 mx-auto mb-12 max-w-3xl text-center">
-        <div className="mx-auto mb-6 flex h-13 w-13 items-center justify-center rounded-2xl border border-white/10 bg-white/10 shadow-[0_18px_55px_rgba(0,0,0,0.2)] backdrop-blur-xl">
+        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/10 shadow-[0_18px_55px_rgba(0,0,0,0.2)] backdrop-blur-xl">
           <div className="flex items-end gap-1">
             <span className="h-5 w-4 rounded-sm bg-white" />
             <span className="h-7 w-4 rounded-sm bg-accent-dark" />
@@ -131,28 +150,28 @@ const Hero = () => {
       <div className="relative z-10 mx-auto max-w-6xl">
         <div
           ref={scrollerRef}
-          onScroll={handleScroll}
+          onScroll={keepScrollLooping}
           onWheel={handleWheel}
-          onPointerDown={() => setIsInteracting(true)}
-          onPointerUp={() => setIsInteracting(false)}
-          onPointerLeave={() => setIsInteracting(false)}
-          onTouchStart={() => setIsInteracting(true)}
-          onTouchEnd={() => setIsInteracting(false)}
+          onPointerDown={startInteraction}
+          onPointerUp={endInteraction}
+          onPointerCancel={endInteraction}
+          onPointerLeave={endInteraction}
           className="cursor-grab overflow-x-auto overflow-y-hidden pb-10 pt-4 active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="Website preview carousel"
         >
           <div className="flex w-max gap-6 px-1 sm:gap-8">
             {repeatedPages.map((page, index) => (
-              <div
+              <article
                 key={`${page.title}-${index}`}
                 className="group w-[285px] shrink-0 sm:w-[280px] md:w-[320px]"
               >
                 {/* Website wrapper */}
                 <div className="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-white/[0.08] shadow-[0_26px_75px_rgba(0,0,0,0.35)] backdrop-blur-xl transition duration-300 group-hover:-translate-y-3 group-hover:border-accent/40 group-hover:shadow-[0_34px_95px_rgba(0,0,0,0.48)]">
-                  <div className="absolute inset-0 rounded-[1.65rem] ring-1 ring-white/10" />
+                  <div className="pointer-events-none absolute inset-0 rounded-[1.65rem] ring-1 ring-white/10" />
 
                   {/* Browser top bar */}
                   <div className="relative z-10 flex h-11 items-center gap-3 border-b border-white/10 bg-brand-light/95 px-4">
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-1.5" aria-hidden="true">
                       <span className="h-3 w-3 rounded-full bg-accent" />
                       <span className="h-3 w-3 rounded-full bg-accent-dark" />
                       <span className="h-3 w-3 rounded-full bg-white/45" />
@@ -169,15 +188,16 @@ const Hero = () => {
                   <div className="relative aspect-[1.18/1] overflow-hidden bg-soft">
                     <Image
                       src={page.image}
-                      alt={page.title}
+                      alt={`${page.title} website preview`}
                       fill
                       sizes="(max-width: 640px) 285px, (max-width: 768px) 280px, 320px"
+                      quality={80}
                       className="object-cover object-top transition duration-700 group-hover:scale-105"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand/20 via-transparent to-white/10" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand/20 via-transparent to-white/10" />
 
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand/90 via-brand/35 to-transparent p-5 opacity-0 transition duration-300 group-hover:opacity-100">
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand/90 via-brand/35 to-transparent p-5 opacity-0 transition duration-300 group-hover:opacity-100">
                       <p className="text-sm font-black uppercase tracking-[0.12em] text-white">
                         {page.title}
                       </p>
@@ -195,7 +215,7 @@ const Hero = () => {
                     Website
                   </span>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>

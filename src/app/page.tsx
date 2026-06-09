@@ -6,12 +6,14 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import About from "@/components/About";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f3edf9] text-black">
       <Navbar />
       <Hero />
+      <About />
       <Services />
       <Work />
       <Pricing />

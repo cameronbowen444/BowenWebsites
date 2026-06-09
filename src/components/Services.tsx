@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   FiArrowRight,
   FiArrowUpRight,
@@ -10,11 +10,21 @@ import {
   FiLayers,
   FiX,
   FiZap,
+  type IconType,
 } from "react-icons/fi";
 
-const services = [
+type Service = {
+  icon: IconType;
+  title: string;
+  price: string;
+  short: string;
+  details: string;
+  includes: string[];
+};
+
+const services: Service[] = [
   {
-    icon: <FiGlobe />,
+    icon: FiGlobe,
     title: "Custom Built For You",
     price: "No Templates",
     short:
@@ -29,7 +39,7 @@ const services = [
     ],
   },
   {
-    icon: <FiZap />,
+    icon: FiZap,
     title: "Fast & Responsive",
     price: "Built To Perform",
     short:
@@ -44,7 +54,7 @@ const services = [
     ],
   },
   {
-    icon: <FiLayers />,
+    icon: FiLayers,
     title: "Exactly What You Want",
     price: "Your Style",
     short:
@@ -59,7 +69,7 @@ const services = [
     ],
   },
   {
-    icon: <FiArrowUpRight />,
+    icon: FiArrowUpRight,
     title: "Made To Get Leads",
     price: "Business Focused",
     short:
@@ -76,9 +86,32 @@ const services = [
 ];
 
 const Services = () => {
-  const [activeService, setActiveService] = useState<
-    (typeof services)[number] | null
-  >(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const activeService = useMemo(() => {
+    if (activeIndex === null) return null;
+    return services[activeIndex];
+  }, [activeIndex]);
+
+  const closeModal = useCallback(() => {
+    setActiveIndex(null);
+  }, []);
+
+  useEffect(() => {
+    if (!activeService) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeModal();
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeService, closeModal]);
 
   return (
     <section
@@ -94,8 +127,8 @@ const Services = () => {
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.45 }}
           className="mx-auto mb-11 max-w-2xl text-center"
         >
           <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">
@@ -118,43 +151,48 @@ const Services = () => {
 
         {/* Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, index) => (
-            <motion.article
-              key={service.title}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: index * 0.07 }}
-              className="relative rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.09]"
-            >
-              <div className="absolute -top-5 left-5 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-accent text-lg text-brand shadow-[0_14px_30px_rgba(56,189,248,0.18)]">
-                {service.icon}
-              </div>
+          {services.map((service, index) => {
+            const Icon = service.icon;
 
-              <div className="pt-8">
-                <div className="mb-5 inline-flex rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-accent">
-                  {service.price}
+            return (
+              <motion.article
+                key={service.title}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.45, delay: index * 0.05 }}
+                className="relative rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.09]"
+              >
+                <div className="absolute -top-5 left-5 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-accent text-lg text-brand shadow-[0_14px_30px_rgba(56,189,248,0.18)]">
+                  <Icon aria-hidden="true" />
                 </div>
 
-                <h3 className="text-xl font-black tracking-[-0.03em] text-white">
-                  {service.title}
-                </h3>
+                <div className="pt-8">
+                  <div className="mb-5 inline-flex rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-accent">
+                    {service.price}
+                  </div>
 
-                <p className="mt-3 min-h-[72px] text-sm font-medium leading-6 text-white/55">
-                  {service.short}
-                </p>
+                  <h3 className="text-xl font-black tracking-[-0.03em] text-white">
+                    {service.title}
+                  </h3>
 
-                <button
-                  type="button"
-                  onClick={() => setActiveService(service)}
-                  className="mt-7 inline-flex items-center gap-2 text-sm font-black text-accent transition hover:text-white"
-                >
-                  Read more
-                  <FiArrowRight />
-                </button>
-              </div>
-            </motion.article>
-          ))}
+                  <p className="mt-3 min-h-[72px] text-sm font-medium leading-6 text-white/55">
+                    {service.short}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    className="mt-7 inline-flex items-center gap-2 text-sm font-black text-accent transition hover:text-white"
+                    aria-label={`Read more about ${service.title}`}
+                  >
+                    Read more
+                    <FiArrowRight aria-hidden="true" />
+                  </button>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
 
         {/* CTA */}
@@ -164,7 +202,7 @@ const Services = () => {
             className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
           >
             Start Your Website
-            <FiArrowUpRight />
+            <FiArrowUpRight aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -177,34 +215,40 @@ const Services = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setActiveService(null)}
+            onClick={closeModal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="service-modal-title"
           >
             <motion.div
               initial={{ opacity: 0, y: 24, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 24, scale: 0.96 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-              className="relative w-full max-w-lg rounded-[1.5rem] border border-white/10 bg-brand p-6 shadow-[0_24px_90px_rgba(0,0,0,0.45)]"
+              transition={{ duration: 0.22 }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[1.5rem] border border-white/10 bg-brand p-6 shadow-[0_24px_90px_rgba(0,0,0,0.45)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               <button
                 type="button"
-                onClick={() => setActiveService(null)}
+                onClick={closeModal}
                 className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-white/70 transition hover:bg-accent hover:text-brand"
                 aria-label="Close modal"
               >
-                <FiX />
+                <FiX aria-hidden="true" />
               </button>
 
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-xl text-brand">
-                {activeService.icon}
+                <activeService.icon aria-hidden="true" />
               </div>
 
               <p className="mb-2 text-[10px] font-black uppercase tracking-[0.18em] text-accent">
                 {activeService.price}
               </p>
 
-              <h3 className="text-2xl font-black tracking-[-0.04em] text-white">
+              <h3
+                id="service-modal-title"
+                className="text-2xl font-black tracking-[-0.04em] text-white"
+              >
                 {activeService.title}
               </h3>
 
@@ -221,8 +265,8 @@ const Services = () => {
               <div className="grid gap-2">
                 {activeService.includes.map((item) => (
                   <div key={item} className="flex items-center gap-2.5">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-accent text-brand">
-                      <FiCheck size={11} />
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-brand">
+                      <FiCheck size={11} aria-hidden="true" />
                     </div>
 
                     <p className="text-sm font-bold text-white/65">{item}</p>
@@ -232,11 +276,11 @@ const Services = () => {
 
               <a
                 href="#contact"
-                onClick={() => setActiveService(null)}
+                onClick={closeModal}
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:bg-white"
               >
                 Start This Project
-                <FiArrowUpRight />
+                <FiArrowUpRight aria-hidden="true" />
               </a>
             </motion.div>
           </motion.div>

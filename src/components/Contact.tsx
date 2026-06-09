@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { FormEvent, useState } from "react";
 import {
   FiArrowUpRight,
   FiCode,
@@ -11,32 +12,146 @@ import {
   FiPhone,
   FiSend,
   FiShoppingBag,
+  type IconType,
 } from "react-icons/fi";
 
-const projectTypes = [
+type ProjectType = {
+  icon: IconType;
+  title: string;
+  price: string;
+};
+
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  businessName: string;
+  projectCategory: string;
+  budget: string;
+  message: string;
+  projectTypes: string[];
+};
+
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+const projectTypes: ProjectType[] = [
   {
-    icon: <FiGlobe />,
+    icon: FiGlobe,
     title: "Starter Site",
     price: "$750",
   },
   {
-    icon: <FiShoppingBag />,
+    icon: FiShoppingBag,
     title: "Business Site",
     price: "$1,500",
   },
   {
-    icon: <FiDatabase />,
+    icon: FiDatabase,
     title: "Pro Site",
     price: "$2,500+",
   },
   {
-    icon: <FiCode />,
+    icon: FiCode,
     title: "Redesign",
     price: "Custom",
   },
 ];
 
+const initialFormData: FormData = {
+  name: "",
+  email: "",
+  phone: "",
+  businessName: "",
+  projectCategory: "Website",
+  budget: "$750+",
+  message: "",
+  projectTypes: [],
+};
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Contact = () => {
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [status, setStatus] = useState<"idle" | "success">("idle");
+
+  const validateForm = () => {
+    const nextErrors: FormErrors = {};
+
+    if (!formData.name.trim()) {
+      nextErrors.name = "Full name is required.";
+    }
+
+    if (!formData.email.trim()) {
+      nextErrors.email = "Email is required.";
+    } else if (!emailRegex.test(formData.email)) {
+      nextErrors.email = "Enter a valid email address.";
+    }
+
+    if (!formData.message.trim()) {
+      nextErrors.message = "Please tell me a little about the project.";
+    } else if (formData.message.trim().length < 15) {
+      nextErrors.message = "Message should be at least 15 characters.";
+    }
+
+    if (formData.projectTypes.length === 0) {
+      nextErrors.projectTypes = "Choose at least one project type.";
+    }
+
+    setErrors(nextErrors);
+
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+
+    setStatus("idle");
+  };
+
+  const handleProjectTypeChange = (value: string) => {
+    setFormData((prev) => {
+      const alreadySelected = prev.projectTypes.includes(value);
+
+      return {
+        ...prev,
+        projectTypes: alreadySelected
+          ? prev.projectTypes.filter((item) => item !== value)
+          : [...prev.projectTypes, value],
+      };
+    });
+
+    setErrors((prev) => ({
+      ...prev,
+      projectTypes: "",
+    }));
+
+    setStatus("idle");
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    console.log("Contact form submitted:", formData);
+
+    setStatus("success");
+    setFormData(initialFormData);
+  };
+
   return (
     <section
       id="contact"
@@ -51,8 +166,8 @@ const Contact = () => {
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.45 }}
           className="mx-auto mb-10 max-w-2xl text-center"
         >
           <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">
@@ -72,13 +187,7 @@ const Contact = () => {
         </motion.div>
 
         {/* Split Contact Layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.65 }}
-          className="grid overflow-hidden rounded-[2rem] border border-white/10 bg-black p-2 shadow-[0_26px_90px_rgba(0,0,0,0.34)] lg:grid-cols-[0.95fr_1.05fr]"
-        >
+        <div className="grid overflow-hidden rounded-[2rem] border border-white/10 bg-black p-2 shadow-[0_26px_90px_rgba(0,0,0,0.34)] lg:grid-cols-[0.95fr_1.05fr]">
           {/* Form Side */}
           <div className="relative overflow-hidden rounded-[1.65rem] bg-[#0b0f13] p-5 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-0">
@@ -104,11 +213,11 @@ const Contact = () => {
                 </div>
 
                 <div className="hidden h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-lg text-accent sm:flex">
-                  <FiSend />
+                  <FiSend aria-hidden="true" />
                 </div>
               </div>
 
-              <form className="space-y-7">
+              <form onSubmit={handleSubmit} noValidate className="space-y-7">
                 {/* Project Type */}
                 <div>
                   <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/40">
@@ -116,34 +225,51 @@ const Contact = () => {
                   </p>
 
                   <div className="grid gap-2 sm:grid-cols-2">
-                    {projectTypes.map((type) => (
-                      <label
-                        key={type.title}
-                        className="group flex cursor-pointer items-center justify-between gap-3 rounded-full border border-white/10 bg-white/[0.025] px-3 py-2.5 transition hover:border-accent/45 hover:bg-white/[0.045]"
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <input
-                            type="checkbox"
-                            name="projectTypes"
-                            value={type.title}
-                            className="h-3.5 w-3.5 accent-accent"
-                          />
+                    {projectTypes.map((type) => {
+                      const Icon = type.icon;
+                      const checked = formData.projectTypes.includes(type.title);
 
-                          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-sm text-accent">
-                            {type.icon}
+                      return (
+                        <label
+                          key={type.title}
+                          className={`group flex cursor-pointer items-center justify-between gap-3 rounded-full border px-3 py-2.5 transition ${
+                            checked
+                              ? "border-accent/60 bg-accent/10"
+                              : "border-white/10 bg-white/[0.025] hover:border-accent/45 hover:bg-white/[0.045]"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <input
+                              type="checkbox"
+                              name="projectTypes"
+                              value={type.title}
+                              checked={checked}
+                              onChange={() => handleProjectTypeChange(type.title)}
+                              className="h-3.5 w-3.5 accent-accent"
+                            />
+
+                            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-sm text-accent">
+                              <Icon aria-hidden="true" />
+                            </div>
+
+                            <p className="text-xs font-bold text-white/72">
+                              {type.title}
+                            </p>
                           </div>
 
-                          <p className="text-xs font-bold text-white/72">
-                            {type.title}
-                          </p>
-                        </div>
-
-                        <span className="text-[10px] font-black uppercase tracking-[0.1em] text-accent/80">
-                          {type.price}
-                        </span>
-                      </label>
-                    ))}
+                          <span className="text-[10px] font-black uppercase tracking-[0.1em] text-accent/80">
+                            {type.price}
+                          </span>
+                        </label>
+                      );
+                    })}
                   </div>
+
+                  {errors.projectTypes && (
+                    <p className="mt-2 text-xs font-bold text-red-400">
+                      {errors.projectTypes}
+                    </p>
+                  )}
                 </div>
 
                 {/* Inputs */}
@@ -155,13 +281,25 @@ const Contact = () => {
                     >
                       Full name
                     </label>
+
                     <input
                       id="name"
                       name="name"
                       type="text"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="John Smith"
-                      className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent"
+                      aria-invalid={!!errors.name}
+                      className={`w-full border-0 border-b bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent ${
+                        errors.name ? "border-red-400" : "border-white/25"
+                      }`}
                     />
+
+                    {errors.name && (
+                      <p className="mt-2 text-xs font-bold text-red-400">
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -171,13 +309,25 @@ const Contact = () => {
                     >
                       Email
                     </label>
+
                     <input
                       id="email"
                       name="email"
                       type="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="you@example.com"
-                      className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent"
+                      aria-invalid={!!errors.email}
+                      className={`w-full border-0 border-b bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent ${
+                        errors.email ? "border-red-400" : "border-white/25"
+                      }`}
                     />
+
+                    {errors.email && (
+                      <p className="mt-2 text-xs font-bold text-red-400">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -189,10 +339,13 @@ const Contact = () => {
                     >
                       Phone
                     </label>
+
                     <input
                       id="phone"
                       name="phone"
                       type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
                       placeholder="(555) 555-5555"
                       className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent"
                     />
@@ -205,10 +358,13 @@ const Contact = () => {
                     >
                       Business name
                     </label>
+
                     <input
                       id="businessName"
                       name="businessName"
                       type="text"
+                      value={formData.businessName}
+                      onChange={handleChange}
                       placeholder="Your business"
                       className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent"
                     />
@@ -223,9 +379,12 @@ const Contact = () => {
                     >
                       Project category
                     </label>
+
                     <select
                       id="projectCategory"
                       name="projectCategory"
+                      value={formData.projectCategory}
+                      onChange={handleChange}
                       className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition focus:border-accent [&>option]:bg-brand"
                     >
                       <option>Website</option>
@@ -243,9 +402,12 @@ const Contact = () => {
                     >
                       Budget
                     </label>
+
                     <select
                       id="budget"
                       name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
                       className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition focus:border-accent [&>option]:bg-brand"
                     >
                       <option>$750+</option>
@@ -268,21 +430,41 @@ const Contact = () => {
                     id="message"
                     name="message"
                     rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Tell me about your business, pages, colors, example websites, or features..."
-                    className="w-full resize-none border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent"
+                    aria-invalid={!!errors.message}
+                    className={`w-full resize-none border-0 border-b bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent ${
+                      errors.message ? "border-red-400" : "border-white/25"
+                    }`}
                   />
+
+                  {errors.message && (
+                    <p className="mt-2 text-xs font-bold text-red-400">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
-                <button
-  type="submit"
-  className="group flex w-full items-center justify-center gap-2 rounded-full border border-accent/50 bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:border-accent hover:bg-accent hover:text-brand"
->
-  Send Message
+                {status === "success" && (
+                  <div className="rounded-xl border border-accent/30 bg-accent/10 px-4 py-3">
+                    <p className="text-xs font-bold text-accent">
+                      Message ready. Connect this form to Resend or your API route
+                      next.
+                    </p>
+                  </div>
+                )}
 
-  <span className="transition group-hover:translate-x-1 group-hover:-translate-y-1">
-    <FiArrowUpRight />
-  </span>
-</button>
+                <button
+                  type="submit"
+                  className="group flex w-full items-center justify-center gap-2 rounded-full border border-accent/50 bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:border-accent hover:bg-accent hover:text-brand"
+                >
+                  Send Message
+
+                  <span className="transition group-hover:translate-x-1 group-hover:-translate-y-1">
+                    <FiArrowUpRight aria-hidden="true" />
+                  </span>
+                </button>
 
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-8">
                   <div className="flex items-center gap-3">
@@ -291,7 +473,7 @@ const Contact = () => {
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] text-sm text-white/65 transition hover:border-accent/40 hover:text-accent"
                       aria-label="Email"
                     >
-                      <FiMail />
+                      <FiMail aria-hidden="true" />
                     </a>
 
                     <a
@@ -299,7 +481,7 @@ const Contact = () => {
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] text-sm text-white/65 transition hover:border-accent/40 hover:text-accent"
                       aria-label="Call"
                     >
-                      <FiPhone />
+                      <FiPhone aria-hidden="true" />
                     </a>
                   </div>
 
@@ -317,13 +499,12 @@ const Contact = () => {
               src="/assets/back1.png"
               alt="Modern website design project preview"
               fill
-              priority={false}
               className="object-cover"
               sizes="50vw"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-br from-brand/50 via-brand/10 to-black/45" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.16),transparent_48%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand/50 via-brand/10 to-black/45" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.16),transparent_48%)]" />
 
             <div className="absolute bottom-8 left-8 right-8 rounded-[1.25rem] border border-white/10 bg-brand/75 p-5 backdrop-blur-xl">
               <p className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] text-accent">
@@ -351,7 +532,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -14,6 +15,7 @@ import {
 } from "react-icons/fi";
 
 const footerLinks = [
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Pricing", href: "#pricing" },
@@ -45,14 +47,14 @@ const Footer = () => {
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.45 }}
           className="mb-10 rounded-[1.5rem] border border-white/10 bg-white/[0.065] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl sm:p-7"
         >
           <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-brand">
-                <FiZap />
+                <FiZap aria-hidden="true" />
                 Custom Builds. Real Results.
               </div>
 
@@ -75,7 +77,7 @@ const Footer = () => {
             >
               Start Your Build
               <span className="transition group-hover:translate-x-1 group-hover:-translate-y-1">
-                <FiArrowUpRight />
+                <FiArrowUpRight aria-hidden="true" />
               </span>
             </a>
           </div>
@@ -86,8 +88,14 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link href="/" className="group inline-flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-brand-light text-xs font-black text-white shadow-[0_14px_40px_rgba(0,0,0,0.22)] transition group-hover:border-accent/40">
-                BW
+              <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.22)]">
+                <Image
+                  src="/assets/bowen-logo.png"
+                  alt="Bowen Websites logo"
+                  fill
+                  sizes="48px"
+                  className="object-contain p-1"
+                />
               </div>
 
               <div className="leading-none">
@@ -95,6 +103,7 @@ const Footer = () => {
                   Bowen Websites
                   <span className="align-super text-[9px] text-accent">®</span>
                 </p>
+
                 <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.28em] text-white/30">
                   Custom Digital Builds
                 </p>
@@ -113,7 +122,7 @@ const Footer = () => {
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-base text-white/70 transition hover:bg-accent hover:text-brand"
                 aria-label="Email Bowen Websites"
               >
-                <FiMail />
+                <FiMail aria-hidden="true" />
               </a>
 
               <a
@@ -121,7 +130,7 @@ const Footer = () => {
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-base text-white/70 transition hover:bg-accent hover:text-brand"
                 aria-label="Call Bowen Websites"
               >
-                <FiPhone />
+                <FiPhone aria-hidden="true" />
               </a>
 
               <a
@@ -131,7 +140,7 @@ const Footer = () => {
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-base text-white/70 transition hover:bg-accent hover:text-brand"
                 aria-label="GitHub"
               >
-                <FiGithub />
+                <FiGithub aria-hidden="true" />
               </a>
 
               <a
@@ -141,7 +150,7 @@ const Footer = () => {
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-base text-white/70 transition hover:bg-accent hover:text-brand"
                 aria-label="Instagram"
               >
-                <FiInstagram />
+                <FiInstagram aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -196,7 +205,7 @@ const Footer = () => {
                 className="flex items-center gap-2.5 transition hover:text-white"
               >
                 <span className="text-accent">
-                  <FiMail />
+                  <FiMail aria-hidden="true" />
                 </span>
                 Email Bowen Websites
               </a>
@@ -206,22 +215,21 @@ const Footer = () => {
                 className="flex items-center gap-2.5 transition hover:text-white"
               >
                 <span className="text-accent">
-                  <FiPhone />
+                  <FiPhone aria-hidden="true" />
                 </span>
                 Call / Text
               </a>
 
               <div className="flex items-center gap-2.5">
                 <span className="text-accent">
-                  <FiCode />
+                  <FiCode aria-hidden="true" />
                 </span>
-                
                 Built with Next.js
               </div>
 
               <div className="flex items-center gap-2.5">
                 <span className="text-accent">
-                  <FiLayers />
+                  <FiLayers aria-hidden="true" />
                 </span>
                 Designed by Cameron Bowen
               </div>
