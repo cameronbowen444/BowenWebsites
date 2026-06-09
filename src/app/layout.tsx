@@ -73,13 +73,9 @@ export const metadata: Metadata = {
         url: "/assets/bowen-logo.png",
         type: "image/png",
       },
-      {
-        url: "/assets/bowen-logo.png",
-        type: "image/png",
-      },
     ],
     shortcut: "/assets/bowen-logo.png",
-    apple: "/assets/bowen-logo.png",
+    apple: "/assets/logo-back.jpg",
   },
 
   openGraph: {
@@ -90,7 +86,7 @@ export const metadata: Metadata = {
     siteName: "Bowen Websites",
     images: [
       {
-        url: "/assets/bowen-logo.png",
+        url: "/assets/logo-back.jpg",
         width: 1200,
         height: 630,
         alt: "Bowen Websites custom web design and development for small businesses",
@@ -105,7 +101,7 @@ export const metadata: Metadata = {
     title: "Bowen Websites | Custom Websites for Small Businesses",
     description:
       "Modern websites, landing pages, ecommerce stores, and custom systems for small businesses.",
-    images: ["/assets/bowen-logo.png"],
+    images: ["/assets/logo-back.jpg"],
     creator: "@cameronbowen555",
   },
 
@@ -157,8 +153,8 @@ const structuredData = {
   "@type": "LocalBusiness",
   name: "Bowen Websites",
   url: siteUrl,
-  logo: `${siteUrl}/assets/bowen-logo.png`,
-  image: `${siteUrl}/assets/bowen-logo.png`,
+  logo: `${siteUrl}/assets/logo-back.jpg`,
+  image: `${siteUrl}/assets/logo-back.jpg`,
   description:
     "Bowen Websites designs and develops custom websites, landing pages, ecommerce stores, and digital systems for small businesses.",
   founder: {
@@ -186,10 +182,7 @@ const structuredData = {
     addressCountry: "US",
   },
   email: "cameronbowen555@gmail.com",
-  sameAs: [
-    "https://github.com/",
-    "https://instagram.com/",
-  ],
+  sameAs: ["https://github.com/", "https://instagram.com/"],
   makesOffer: [
     {
       "@type": "Offer",
