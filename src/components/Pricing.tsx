@@ -252,7 +252,10 @@ const Pricing = () => {
                   key={item}
                   className="flex items-center gap-2 rounded-lg border border-white/10 bg-brand-light px-3 py-2 text-[11px] font-bold text-white/65"
                 >
-                  <FiCheck size={12} className="text-accent" />
+                  <span className="text-accent">
+                    <FiCheck size={12}  />
+                  </span>
+                  
                   {item}
                 </div>
               ))}

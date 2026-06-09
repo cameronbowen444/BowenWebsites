@@ -274,12 +274,15 @@ const Contact = () => {
                 </div>
 
                 <button
-                  type="submit"
-                  className="group flex w-full items-center justify-center gap-2 rounded-full border border-accent/50 bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:border-accent hover:bg-accent hover:text-brand"
-                >
-                  Send Message
-                  <FiArrowUpRight className="transition group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </button>
+  type="submit"
+  className="group flex w-full items-center justify-center gap-2 rounded-full border border-accent/50 bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:border-accent hover:bg-accent hover:text-brand"
+>
+  Send Message
+
+  <span className="transition group-hover:translate-x-1 group-hover:-translate-y-1">
+    <FiArrowUpRight />
+  </span>
+</button>
 
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-8">
                   <div className="flex items-center gap-3">

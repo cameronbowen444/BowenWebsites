@@ -141,14 +141,12 @@ const Testimonials = () => {
                     </div>
 
                     <div className="flex gap-0.5 text-accent">
-                      {Array.from({ length: 5 }).map((_, starIndex) => (
-                        <FiStar
-                          key={starIndex}
-                          size={12}
-                          className="fill-accent"
-                        />
-                      ))}
-                    </div>
+  {Array.from({ length: 5 }).map((_, starIndex) => (
+    <span key={starIndex} className="fill-accent">
+      <FiStar size={12} />
+    </span>
+  ))}
+</div>
                   </div>
 
                   <p className="text-sm font-medium leading-6 text-white/62">

@@ -184,7 +184,7 @@ const Services = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 24, scale: 0.96 }}
               transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
               className="relative w-full max-w-lg rounded-[1.5rem] border border-white/10 bg-brand p-6 shadow-[0_24px_90px_rgba(0,0,0,0.45)]"
             >
               <button

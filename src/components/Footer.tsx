@@ -74,7 +74,9 @@ const Footer = () => {
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
             >
               Start Your Build
-              <FiArrowUpRight className="transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <span className="transition group-hover:translate-x-1 group-hover:-translate-y-1">
+                <FiArrowUpRight />
+              </span>
             </a>
           </div>
         </motion.div>
@@ -91,9 +93,7 @@ const Footer = () => {
               <div className="leading-none">
                 <p className="text-xl font-black uppercase tracking-[0.14em] text-white">
                   Bowen Websites
-                  <span className="align-super text-[9px] text-accent">
-                    ®
-                  </span>
+                  <span className="align-super text-[9px] text-accent">®</span>
                 </p>
                 <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.28em] text-white/30">
                   Custom Digital Builds
@@ -195,7 +195,9 @@ const Footer = () => {
                 href="mailto:cameronbowen555@gmail.com"
                 className="flex items-center gap-2.5 transition hover:text-white"
               >
-                <FiMail className="text-accent" />
+                <span className="text-accent">
+                  <FiMail />
+                </span>
                 Email Bowen Websites
               </a>
 
@@ -203,17 +205,24 @@ const Footer = () => {
                 href="tel:+15555555555"
                 className="flex items-center gap-2.5 transition hover:text-white"
               >
-                <FiPhone className="text-accent" />
+                <span className="text-accent">
+                  <FiPhone />
+                </span>
                 Call / Text
               </a>
 
               <div className="flex items-center gap-2.5">
-                <FiCode className="text-accent" />
+                <span className="text-accent">
+                  <FiCode />
+                </span>
+                
                 Built with Next.js
               </div>
 
               <div className="flex items-center gap-2.5">
-                <FiLayers className="text-accent" />
+                <span className="text-accent">
+                  <FiLayers />
+                </span>
                 Designed by Cameron Bowen
               </div>
             </div>

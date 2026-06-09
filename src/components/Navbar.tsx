@@ -81,11 +81,11 @@ const Navbar = () => {
               }`}
             >
               Start Project
-              <FiArrowUpRight
-                className={`text-sm transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+              <span className={`text-sm transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
                   scrolled ? "text-accent" : "text-accent-dark"
-                }`}
-              />
+                }`}>
+                <FiArrowUpRight />
+              </span>
             </Link>
 
             <button
@@ -98,7 +98,9 @@ const Navbar = () => {
                   : "border border-white/20 bg-white/90 text-brand hover:bg-white"
               }`}
             >
-              <FiMenu className="text-xl transition group-hover:scale-110" />
+              <span className="text-xl transition group-hover:scale-110">
+                <FiMenu  />
+              </span>
             </button>
           </div>
         </div>
@@ -152,7 +154,9 @@ const Navbar = () => {
                   aria-label="Close menu"
                   className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition hover:border-accent/50 hover:bg-white/15"
                 >
-                  <FiX className="text-xl transition group-hover:rotate-90" />
+                  <span className="text-xl transition group-hover:rotate-90">
+                    <FiX />
+                  </span>
                 </button>
               </div>
 
@@ -180,7 +184,9 @@ const Navbar = () => {
                     className="group mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-brand transition hover:-translate-y-1 hover:bg-white"
                   >
                     Start Project
-                    <FiArrowUpRight className="text-sm transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <span className="text-sm transition group-hover:translate-x-1 group-hover:-translate-y-1">
+                      <FiArrowUpRight />
+                    </span>
                   </Link>
                 </div>
 
@@ -214,7 +220,9 @@ const Navbar = () => {
                             </span>
                           </div>
 
-                          <FiArrowUpRight className="hidden text-2xl text-white/25 transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent sm:block" />
+                          <span className="hidden text-2xl text-white/25 transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent sm:block" >
+                            <FiArrowUpRight />
+                          </span>
                         </Link>
                       </motion.li>
                     ))}
