@@ -27,32 +27,36 @@ const plans: Plan[] = [
     icon: FiGlobe,
     title: "Starter Site",
     subtitle: "Best for getting online fast",
-    price: "$750",
-    monthly: "$49/mo",
+    price: "$750+",
+    monthly: "Monthly plans from $30/mo",
     featured: true,
     features: [
-      "One-page custom website",
+      "Single-page custom website",
       "Mobile responsive layout",
       "Contact form or call button",
       "Basic SEO metadata",
+      "Social media link preview",
+      "Domain/DNS setup guidance",
       "Vercel deployment",
-      "Launch-ready structure",
+      "90 days of small post-launch support",
     ],
   },
   {
     icon: FiShoppingBag,
     title: "Business Site",
     subtitle: "For growing small businesses",
-    price: "$1,500",
-    monthly: "$99/mo",
+    price: "$1,500+",
+    monthly: "Monthly plans from $30/mo",
     featured: false,
     features: [
-      "Custom 3–5 section website",
+      "Custom business website",
+      "Multiple custom sections",
       "Premium mobile-first design",
+      "Service or product sections",
       "Contact/inquiry form setup",
-      "Basic domain/DNS help",
       "SEO metadata and share preview",
-      "Light monthly edits included",
+      "Domain/DNS support",
+      "90 days of small post-launch support",
     ],
   },
   {
@@ -60,15 +64,17 @@ const plans: Plan[] = [
     title: "Pro Site",
     subtitle: "For advanced business needs",
     price: "$2,500+",
-    monthly: "$149/mo",
+    monthly: "Monthly plans from $30/mo",
     featured: false,
     features: [
       "Custom pages and workflows",
-      "Admin, blog, or database setup",
+      "Advanced website structure",
       "Product or service listings",
-      "Advanced forms and integrations",
-      "Booking/inquiry flow planning",
-      "Priority support options",
+      "Admin, blog, or database setup",
+      "Advanced forms or inquiry flows",
+      "Booking or lead-flow planning",
+      "Custom feature planning",
+      "90 days of small post-launch support",
     ],
   },
 ];
@@ -239,7 +245,7 @@ const Pricing = () => {
 
               <h3 className="text-base font-black leading-tight text-white sm:text-lg">
                 Ongoing support starting at{" "}
-                <span className="text-accent">$49/month.</span>
+                <span className="text-accent">$29/month.</span>
               </h3>
 
               <p className="mt-2 max-w-xl text-xs font-medium leading-5 text-white/45">
