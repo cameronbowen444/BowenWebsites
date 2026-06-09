@@ -2,6 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { IconType } from "react-icons";
+
 import {
   FiArrowRight,
   FiArrowUpRight,
@@ -10,7 +12,6 @@ import {
   FiLayers,
   FiX,
   FiZap,
-  type IconType,
 } from "react-icons/fi";
 
 type Service = {

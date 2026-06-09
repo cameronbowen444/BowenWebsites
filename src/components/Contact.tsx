@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
+import type { IconType } from "react-icons";
+
 import {
   FiArrowUpRight,
   FiCode,
@@ -12,7 +14,6 @@ import {
   FiPhone,
   FiSend,
   FiShoppingBag,
-  type IconType,
 } from "react-icons/fi";
 
 type ProjectType = {

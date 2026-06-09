@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
+
 import {
   FiArrowUpRight,
   FiDatabase,
   FiMusic,
   FiShoppingBag,
   FiTruck,
-  type IconType,
 } from "react-icons/fi";
 
 type Project = {

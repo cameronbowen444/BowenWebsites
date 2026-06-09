@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
+
 import {
   FiArrowUpRight,
   FiCheck,
@@ -8,7 +10,6 @@ import {
   FiGlobe,
   FiShield,
   FiShoppingBag,
-  type IconType,
 } from "react-icons/fi";
 
 type Plan = {
