@@ -19,7 +19,6 @@ import {
 type ProjectType = {
   icon: IconType;
   title: string;
-  price: string;
 };
 
 type FormData = {
