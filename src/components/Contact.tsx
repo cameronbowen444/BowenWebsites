@@ -38,23 +38,19 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 const projectTypes: ProjectType[] = [
   {
     icon: FiGlobe,
-    title: "Starter Site",
-    price: "$750",
+    title: "Starter Site"
   },
   {
     icon: FiShoppingBag,
-    title: "Business Site",
-    price: "$1,500",
+    title: "Business Site"
   },
   {
     icon: FiDatabase,
-    title: "Pro Site",
-    price: "$2,500+",
+    title: "Pro Site"
   },
   {
     icon: FiCode,
-    title: "Redesign",
-    price: "Custom",
+    title: "Redesign"
   },
 ];
 
@@ -253,14 +249,10 @@ const Contact = () => {
                               <Icon aria-hidden="true" />
                             </div>
 
-                            <p className="text-xs font-bold text-white/72">
+                            <p className="text-xs font-bold text-white/72 whitespace-nowrap">
                               {type.title}
                             </p>
                           </div>
-
-                          <span className="text-[10px] font-black uppercase tracking-[0.1em] text-accent/80">
-                            {type.price}
-                          </span>
                         </label>
                       );
                     })}
@@ -411,10 +403,10 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition focus:border-accent [&>option]:bg-brand"
                     >
-                      <option>$750+</option>
-                      <option>$1,500+</option>
+                      <option>$500+</option>
+                      <option>$1,000+</option>
                       <option>$2,500+</option>
-                      <option>Need help deciding</option>
+                      <option>Not sure yet?</option>
                     </select>
                   </div>
                 </div>
@@ -435,7 +427,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Tell me about your business, pages, colors, example websites, or features..."
                     aria-invalid={!!errors.message}
-                    className={`w-full resize-none border-0 border-b bg-transparent px-0 py-2.5 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent ${
+                    className={`w-full resize-none border-0 border-b bg-transparent px-0 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-accent ${
                       errors.message ? "border-red-400" : "border-white/25"
                     }`}
                   />
@@ -470,7 +462,7 @@ const Contact = () => {
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-8">
                   <div className="flex items-center gap-3">
                     <a
-                      href="mailto:cameronbowen555@gmail.com"
+                      href="mailto:cameronbowen888@gmail.com"
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] text-sm text-white/65 transition hover:border-accent/40 hover:text-accent"
                       aria-label="Email"
                     >
@@ -478,7 +470,7 @@ const Contact = () => {
                     </a>
 
                     <a
-                      href="tel:+15555555555"
+                      href="tel:+18182927352"
                       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] text-sm text-white/65 transition hover:border-accent/40 hover:text-accent"
                       aria-label="Call"
                     >
