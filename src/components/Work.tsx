@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 import {
   FiArrowUpRight,
@@ -17,68 +18,71 @@ type Project = {
   title: string;
   category: string;
   price: string;
-  priceNote: string;
   image: string;
+  website: string;
   description: string;
-  tags: string[];
 };
 
 const projects: Project[] = [
   {
     icon: FiMusic,
     title: "Bowen Records",
-    category: "Ecommerce Store",
-    price: "$1,000",
-    priceNote: "Example build price",
-    image: "/assets/land1.png",
-    description:
-      "A retro vinyl store with product sections, cart flow, branding, and a customer-friendly shopping layout.",
-    tags: ["Shop", "Cart", "Branding"],
+    category: "Business Website",
+    price: "$750",
+    image: "/assets/land4.png",
+    website: "https://your-bowen-records-site.com",
+    description: "A clean website for a local record store.",
   },
   {
     icon: FiTruck,
     title: "Luxury Chauffeur",
     category: "Business Website",
     price: "$750",
-    priceNote: "Example build price",
-    image: "/assets/land2.png",
-    description:
-      "A premium service website made to feel high-end, build trust, and push customers toward quotes and calls.",
-    tags: ["Services", "Quote CTA", "Luxury"],
+    image: "/assets/land1.png",
+    website: "https://your-luxury-chauffeur-site.com",
+    description: "A premium site built for quotes and calls.",
   },
   {
     icon: FiShoppingBag,
-    title: "Rental Platform",
+    title: "Herbal Website & Blog",
     category: "Custom Website",
-    price: "$1,500+",
-    priceNote: "Example build price",
+    price: "$750",
     image: "/assets/land3.png",
-    description:
-      "A vehicle listing platform with car details, pricing direction, booking flow, and a more advanced site structure.",
-    tags: ["Listings", "Details", "Booking"],
+    website: "https://your-herbal-website.com",
+    description: "A warm website with blog and email signup.",
   },
   {
     icon: FiDatabase,
-    title: "Management System",
-    category: "Custom System",
-    price: "$2,500+",
-    priceNote: "Example build price",
-    image: "/assets/land4.png",
-    description:
-      "A dashboard-style tool for tracking business records, jobs, products, customers, or internal workflows.",
-    tags: ["Database", "Dashboard", "Tools"],
+    title: "Car Sales & Rentals",
+    category: "Custom Website",
+    price: "$750",
+    image: "/assets/land2.png",
+    website: "https://your-car-sales-rentals-site.com",
+    description: "A vehicle site with listings and inquiry flow.",
   },
 ];
 
 const Work = () => {
+  const openProjectWebsite = (website: string) => {
+    window.open(website, "_blank", "noopener,noreferrer");
+  };
+
+  const startSimilarProject = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    requestAnimationFrame(() => {
+      scrollToSection("#contact");
+    });
+  };
+
   return (
     <section
       id="work"
-      className="relative overflow-hidden bg-brand px-4 py-20 text-white sm:px-6 lg:px-8"
+      className="relative overflow-hidden bg-[#081523] px-4 py-20 text-[#f8f6f1] sm:px-6 lg:px-8"
     >
       {/* Background glows */}
-      <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-accent/15 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-white/10 blur-3xl" />
+      <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[#c89455]/15 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-[#12345a]/30 blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
         {/* Header */}
@@ -89,152 +93,123 @@ const Work = () => {
           transition={{ duration: 0.45 }}
           className="mx-auto mb-10 max-w-2xl text-center"
         >
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-[#c89455]">
             Featured Work
           </p>
 
-          <h2 className="text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-[#f8f6f1] sm:text-4xl md:text-5xl">
             Basic Is Boring
             <br />
-            <span className="text-accent">Built To Stand Out.</span>
+            <span className="text-[#c89455]">Built To Stand Out.</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-white/55 sm:text-base">
-            Real examples of websites, stores, and custom systems Bowen
-            Websites can build, with clear pricing so business owners know what
-            to expect.
+          <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-[#f8f6f1]/55 sm:text-base">
+            A few examples of clean websites built for real business needs.
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {projects.map((project, index) => {
             const Icon = project.icon;
 
             return (
-              <article
+              <motion.article
                 key={project.title}
-                className="group overflow-hidden rounded-[1.15rem] border border-white/10 bg-white/[0.065] shadow-[0_18px_50px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.09]"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.45, delay: index * 0.05 }}
+                role="link"
+                tabIndex={0}
+                onClick={() => openProjectWebsite(project.website)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openProjectWebsite(project.website);
+                  }
+                }}
+                className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.4rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#c89455]/45"
               >
                 {/* Image */}
-                <div className="relative h-40 overflow-hidden border-b border-white/10 bg-brand-light">
+                <div className="relative h-56 overflow-hidden bg-[#102d4d] pb-px">
                   <Image
                     src={project.image}
                     alt={`${project.title} website preview`}
                     fill
-                    quality={80}
-                    className="object-cover opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                    quality={85}
+                    className="object-cover opacity-90 transition duration-500 "
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
 
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand via-brand/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#081523]/90 via-[#081523]/20 to-transparent" />
 
-                  <div className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-brand/80 text-base text-accent backdrop-blur">
+                  <div className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl border border-[#f8f6f1]/10 bg-[#081523]/80 text-base text-[#c89455] backdrop-blur">
                     <Icon aria-hidden="true" />
                   </div>
 
-                  <span className="absolute right-3 top-3 rounded-full border border-white/10 bg-brand/80 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-white/55 backdrop-blur">
-                    0{index + 1}
-                  </span>
+                  <div className="absolute right-4 top-4 rounded-full bg-[#c89455] px-3 py-1 text-xs font-black text-[#081523] shadow-[0_10px_24px_rgba(0,0,0,0.22)]">
+                    {project.price}
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="mb-2 text-[9px] font-black uppercase tracking-[0.16em] text-[#c89455]">
+                      {project.category}
+                    </p>
+
+                    <h3 className="text-xl font-black leading-tight tracking-[-0.04em] text-[#f8f6f1]">
+                      {project.title}
+                    </h3>
+                  </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-4">
-                  <p className="mb-2 text-[9px] font-black uppercase tracking-[0.16em] text-accent/75">
-                    {project.category}
-                  </p>
-
-                  <h3 className="text-base font-black leading-tight text-white">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-3 text-xs font-medium leading-5 text-white/50">
+                <div className="flex flex-1 flex-col p-4">
+                  <p className="text-xs font-medium leading-5 text-[#f8f6f1]/50">
                     {project.description}
                   </p>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.1em] text-white/45"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <button
+                    type="button"
+                    onClick={startSimilarProject}
+                    className="mt-auto flex w-full cursor-pointer items-center justify-between border-t border-[#f8f6f1]/10 pt-4 text-left"
+                    aria-label={`Start one like ${project.title}`}
+                  >
+                    <span className="text-[10px] font-black uppercase tracking-[0.1em] text-[#f8f6f1]/35">
+                      Start one like this
+                    </span>
 
-                  {/* Transparent Pricing */}
-                  <div className="mt-5 rounded-xl border border-accent/20 bg-accent/10 p-3">
-                    <p className="text-[9px] font-black uppercase tracking-[0.14em] text-accent/80">
-                      {project.priceNote}
-                    </p>
-
-                    <div className="mt-1 flex items-end justify-between gap-3">
-                      <p className="text-2xl font-black tracking-[-0.05em] text-white">
-                        {project.price}
-                      </p>
-
-                      <p className="pb-1 text-right text-[9px] font-bold uppercase tracking-[0.1em] text-white/35">
-                        Build only
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.1em] text-white/35">
-                      Similar projects available
-                    </p>
-
-                    <a
-                      href="#contact"
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm text-brand transition group-hover:rotate-45 group-hover:bg-accent"
-                      aria-label={`Ask about ${project.title}`}
-                    >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f8f6f1] text-sm text-[#081523] transition group-hover:rotate-45 group-hover:bg-[#c89455]">
                       <FiArrowUpRight aria-hidden="true" />
-                    </a>
-                  </div>
+                    </span>
+                  </button>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>
 
-        {/* Pricing Clarity Note */}
-        <div className="mx-auto mt-6 max-w-4xl rounded-[1.15rem] border border-accent/20 bg-accent/10 p-4 text-center shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl">
-          <p className="mb-2 text-[9px] font-black uppercase tracking-[0.16em] text-accent">
-            Transparent Pricing
-          </p>
-
-          <h3 className="text-base font-black leading-tight text-white sm:text-lg">
-            These examples show what similar builds would cost.
-          </h3>
-
-          <p className="mx-auto mt-2 max-w-2xl text-xs font-medium leading-5 text-white/50">
-            Final pricing depends on pages, features, forms, admin tools,
-            databases, product listings, booking flows, and how much custom
-            functionality your business needs.
-          </p>
-        </div>
-
         {/* Bottom Note */}
-        <div className="mx-auto mt-6 flex max-w-3xl flex-col items-center justify-between gap-4 rounded-[1.15rem] border border-white/10 bg-white/[0.065] p-4 text-center shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:flex-row sm:text-left">
+        <div className="mx-auto mt-6 flex max-w-3xl flex-col items-center justify-between gap-4 rounded-[1.15rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.065] p-4 text-center shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:flex-row sm:text-left">
           <div>
-            <p className="text-sm font-black text-white">
+            <p className="text-sm font-black text-[#f8f6f1]">
               Need something custom?
             </p>
-            <p className="mt-1 text-xs font-medium text-white/45">
+
+            <p className="mt-1 text-xs font-medium text-[#f8f6f1]/45">
               Bowen Websites can build around your business, services, and
               goals.
             </p>
           </div>
 
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
+          <button
+            type="button"
+            onClick={() => scrollToSection("#contact")}
+            className="inline-flex items-center gap-2 rounded-full bg-[#c89455] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#081523] transition hover:-translate-y-0.5 hover:bg-[#f8f6f1]"
           >
             Start Build
             <FiArrowUpRight aria-hidden="true" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

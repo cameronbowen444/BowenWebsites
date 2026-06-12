@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { IconType } from "react-icons";
+import { scrollToSection } from "@/lib/scrollToSection";
 
 import {
   FiArrowRight,
@@ -117,11 +118,11 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-brand px-4 py-20 text-white sm:px-6 lg:px-8"
+      className="relative overflow-hidden bg-[#081523] px-4 py-20 text-[#f8f6f1] sm:px-6 lg:px-8"
     >
       {/* Background glows */}
-      <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-accent/15 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-white/10 blur-3xl" />
+      <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[#c89455]/15 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-[#12345a]/30 blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-6xl rounded-[2rem] px-0 py-14">
         {/* Header */}
@@ -132,22 +133,16 @@ const Services = () => {
           transition={{ duration: 0.45 }}
           className="mx-auto mb-11 max-w-2xl text-center"
         >
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-[#c89455]">
             Services
           </p>
 
-          <h2 className="text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-[#f8f6f1] sm:text-4xl md:text-5xl">
             More Than A{" "}
-            <span className="rounded-xl bg-accent px-3 py-1 text-brand">
+            <span className="rounded-xl bg-[#c89455] px-3 py-1 text-[#081523]">
               Website
             </span>
           </h2>
-
-          <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-white/55 sm:text-base">
-            You get a custom-built website that looks professional, works on
-            every screen, loads fast, and is shaped around exactly what your
-            business needs.
-          </p>
         </motion.div>
 
         {/* Cards */}
@@ -162,34 +157,36 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="relative rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.09]"
+                className="relative rounded-[1.5rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.07] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.09]"
               >
-                <div className="absolute -top-5 left-5 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-accent text-lg text-brand shadow-[0_14px_30px_rgba(56,189,248,0.18)]">
+                <div className="absolute -top-5 left-5 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#f8f6f1]/10 bg-[#c89455] text-lg text-[#081523] shadow-[0_14px_30px_rgba(200,148,85,0.18)]">
                   <Icon aria-hidden="true" />
                 </div>
 
-                <div className="pt-8">
-                  <div className="mb-5 inline-flex rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-accent">
+                <div className="flex h-full flex-col pt-8">
+                  <div className="mb-5 inline-flex w-fit rounded-full border border-[#c89455]/25 bg-[#c89455]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#c89455]">
                     {service.price}
                   </div>
 
-                  <h3 className="text-xl font-black tracking-[-0.03em] text-white">
+                  <h3 className="text-xl font-black tracking-[-0.03em] text-[#f8f6f1]">
                     {service.title}
                   </h3>
 
-                  <p className="mt-3 min-h-[72px] text-sm font-medium leading-6 text-white/55">
+                  <p className="mt-3 min-h-[72px] text-sm font-medium leading-6 text-[#f8f6f1]/55">
                     {service.short}
                   </p>
 
-                  <button
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-black text-accent transition hover:text-white"
-                    aria-label={`Read more about ${service.title}`}
-                  >
-                    Read more
-                    <FiArrowRight aria-hidden="true" />
-                  </button>
+                  <div className="mt-auto ">
+                    <button
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      className="mt-7 inline-flex cursor-pointer items-center gap-2 text-sm font-black text-[#c89455] transition hover:text-[#f8f6f1]"
+                      aria-label={`Read more about ${service.title}`}
+                    >
+                      Read more
+                      <FiArrowRight aria-hidden="true" />
+                    </button>
+                  </div>
                 </div>
               </motion.article>
             );
@@ -198,13 +195,14 @@ const Services = () => {
 
         {/* CTA */}
         <div className="mt-11 flex justify-center">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
+          <button
+            type="button"
+            onClick={() => scrollToSection("#contact")}
+            className="inline-flex items-center gap-2 rounded-full bg-[#c89455] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#081523] transition hover:-translate-y-0.5 hover:bg-[#f8f6f1]"
           >
             Start Your Website
             <FiArrowUpRight aria-hidden="true" />
-          </a>
+          </button>
         </div>
       </div>
 
@@ -227,58 +225,68 @@ const Services = () => {
               exit={{ opacity: 0, y: 24, scale: 0.96 }}
               transition={{ duration: 0.22 }}
               onClick={(event) => event.stopPropagation()}
-              className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[1.5rem] border border-white/10 bg-brand p-6 shadow-[0_24px_90px_rgba(0,0,0,0.45)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[1.5rem] border border-[#f8f6f1]/10 bg-[#081523] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.45)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               <button
                 type="button"
                 onClick={closeModal}
-                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-white/70 transition hover:bg-accent hover:text-brand"
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-[#f8f6f1]/70 transition hover:bg-[#c89455] hover:text-[#081523]"
                 aria-label="Close modal"
               >
                 <FiX aria-hidden="true" />
               </button>
 
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-xl text-brand">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#c89455] text-xl text-[#081523]">
                 <activeService.icon aria-hidden="true" />
               </div>
 
-              <p className="mb-2 text-[10px] font-black uppercase tracking-[0.18em] text-accent">
+              <p className="mb-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#c89455]">
                 {activeService.price}
               </p>
 
               <h3
                 id="service-modal-title"
-                className="text-2xl font-black tracking-[-0.04em] text-white"
+                className="text-2xl font-black tracking-[-0.04em] text-[#f8f6f1]"
               >
                 {activeService.title}
               </h3>
 
-              <p className="mt-4 text-sm font-medium leading-6 text-white/55">
+              <p className="mt-4 text-sm font-medium leading-6 text-[#f8f6f1]/55">
                 {activeService.details}
               </p>
 
-              <div className="my-5 h-px bg-white/10" />
+              <div className="my-5 h-px bg-[#f8f6f1]/10" />
 
-              <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/35">
+              <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-[#f8f6f1]/35">
                 Includes
               </p>
 
               <div className="grid gap-2">
                 {activeService.includes.map((item) => (
                   <div key={item} className="flex items-center gap-2.5">
-                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-brand">
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#c89455] text-[#081523]">
                       <FiCheck size={11} aria-hidden="true" />
                     </div>
 
-                    <p className="text-sm font-bold text-white/65">{item}</p>
+                    <p className="text-sm font-bold text-[#f8f6f1]/65">
+                      {item}
+                    </p>
                   </div>
                 ))}
               </div>
 
               <a
                 href="#contact"
-                onClick={closeModal}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:bg-white"
+                onClick={(event) => {
+                  event.preventDefault();
+
+                  closeModal();
+
+                  requestAnimationFrame(() => {
+                    scrollToSection("#contact");
+                  });
+                }}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#c89455] px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#081523] transition hover:bg-[#f8f6f1]"
               >
                 Start This Project
                 <FiArrowUpRight aria-hidden="true" />

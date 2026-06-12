@@ -680,30 +680,30 @@ export default function InquiryPage() {
 
   if (submitted) {
     return (
-      <main className="relative min-h-screen overflow-hidden bg-brand px-4 py-20 text-white sm:px-6 lg:px-8">
-        <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-accent/15 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-white/10 blur-3xl" />
+      <main className="relative min-h-screen overflow-hidden bg-[#081523] px-4 py-20 text-[#f8f6f1] sm:px-6 lg:px-8">
+        <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[#c89455]/15 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-[#12345a]/30 blur-3xl" />
 
         <section className="relative z-10 mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center">
           <motion.div
             initial={{ opacity: 0, y: 22, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.35 }}
-            className="w-full rounded-[2rem] border border-white/10 bg-white/[0.07] p-8 text-center shadow-[0_24px_90px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-12"
+            className="w-full rounded-[2rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.07] p-8 text-center shadow-[0_24px_90px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-12"
           >
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent text-2xl text-brand">
+            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#c89455] text-2xl text-[#081523]">
               <FiCheck aria-hidden="true" />
             </div>
 
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">
+            <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-[#c89455]">
               Questionnaire Sent
             </p>
 
-            <h1 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
+            <h1 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-[#f8f6f1] sm:text-5xl">
               Thanks, {form.name.split(" ")[0] || "there"}.
             </h1>
 
-            <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-white/55 sm:text-base">
+            <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-[#f8f6f1]/55 sm:text-base">
               I received your website questionnaire. I’ll review your answers
               and follow up with the next steps for your project.
             </p>
@@ -716,7 +716,7 @@ export default function InquiryPage() {
                   setStep(0);
                   setForm(initialForm);
                 }}
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full bg-[#c89455] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#081523] transition hover:-translate-y-0.5 hover:bg-[#f8f6f1]"
               >
                 Submit Another Response
                 <FiArrowRight aria-hidden="true" />
@@ -724,7 +724,7 @@ export default function InquiryPage() {
 
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent"
+                className="inline-flex items-center gap-2 rounded-full border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#f8f6f1] transition hover:-translate-y-0.5 hover:border-[#c89455]/40 hover:text-[#c89455]"
               >
                 Back Home
                 <FiArrowRight aria-hidden="true" />
@@ -737,9 +737,9 @@ export default function InquiryPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-brand px-4 py-16 text-white sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-accent/15 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-white/10 blur-3xl" />
+    <main className="relative min-h-screen overflow-hidden bg-[#081523] px-4 py-16 text-[#f8f6f1] sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[#c89455]/15 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-[#12345a]/30 blur-3xl" />
 
       <section className="relative z-10 mx-auto max-w-5xl">
         <motion.div
@@ -748,40 +748,45 @@ export default function InquiryPage() {
           transition={{ duration: 0.45 }}
           className="mx-auto mb-10 max-w-2xl text-center"
         >
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-[#c89455]">
             Bowen Websites Questionnaire
           </p>
 
-          <h1 className="text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-white sm:text-4xl md:text-5xl">
+          <h1 className="text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em] text-[#f8f6f1] sm:text-4xl md:text-5xl">
             Start Your{" "}
-            <span className="rounded-xl bg-accent px-3 py-1 text-brand">
+            <span className="rounded-xl bg-[#c89455] px-3 py-1 text-[#081523]">
               Website
             </span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-white/55 sm:text-base">
+          <p className="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-[#f8f6f1]/55 sm:text-base">
             Fill out the questionnaire yourself, or schedule a call and we can
             go through it together.
           </p>
+
           <a
             href="/bowen-websites-questionnaire.pdf"
             download
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-accent transition hover:-translate-y-0.5 hover:bg-accent hover:text-brand"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#c89455]/30 bg-[#c89455]/10 px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#c89455] transition hover:-translate-y-0.5 hover:bg-[#c89455] hover:text-[#081523]"
           >
             Download PDF & Fill Out Yourself
             <FiDownload aria-hidden="true" />
           </a>
-          <p>This form will take at least 30 minutes to fill out, if you need more time then the pdf is recomended</p>
+
+          <p className="mx-auto mt-4 max-w-lg text-xs font-medium leading-5 text-[#f8f6f1]/45">
+            This form will take at least 30 minutes to fill out. If you need
+            more time, the PDF is recommended.
+          </p>
         </motion.div>
 
-        <div className="mb-5 overflow-hidden rounded-full border border-white/10 bg-white/[0.06]">
+        <div className="mb-5 overflow-hidden rounded-full border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06]">
           <div
-            className="h-2 rounded-full bg-accent transition-all duration-500"
+            className="h-2 rounded-full bg-[#c89455] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="mb-5 flex items-center justify-between text-xs font-black uppercase tracking-[0.18em] text-white/35">
+        <div className="mb-5 flex items-center justify-between text-xs font-black uppercase tracking-[0.18em] text-[#f8f6f1]/35">
           <span>
             Question {step + 1} of {visibleQuestions.length}
           </span>
@@ -793,24 +798,24 @@ export default function InquiryPage() {
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.28 }}
-          className="rounded-[2rem] border border-white/10 bg-white/[0.07] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-8 lg:p-10"
+          className="rounded-[2rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.07] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-8 lg:p-10"
         >
           <div className="mb-8">
             <div className="mb-5 flex flex-wrap gap-2">
-              <span className="inline-flex rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-accent">
+              <span className="inline-flex rounded-full border border-[#c89455]/25 bg-[#c89455]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#c89455]">
                 {currentQuestion.section}
               </span>
 
-              <span className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-white/40">
+              <span className="inline-flex rounded-full border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#f8f6f1]/40">
                 {currentQuestion.required ? "Required" : "Optional"}
               </span>
             </div>
 
-            <h2 className="max-w-3xl text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
+            <h2 className="max-w-3xl text-3xl font-black tracking-[-0.04em] text-[#f8f6f1] sm:text-4xl">
               {currentQuestion.label}
             </h2>
 
-            <p className="mt-3 max-w-2xl text-sm font-medium leading-6 text-white/55">
+            <p className="mt-3 max-w-2xl text-sm font-medium leading-6 text-[#f8f6f1]/55">
               {currentQuestion.helper}
             </p>
           </div>
@@ -826,7 +831,7 @@ export default function InquiryPage() {
                 }
                 placeholder={currentQuestion.placeholder}
                 autoFocus
-                className="w-full rounded-2xl border border-white/10 bg-white/[0.06] px-5 py-4 text-base font-bold text-white outline-none transition placeholder:text-white/25 focus:border-accent/50 focus:bg-white/[0.09] sm:text-lg"
+                className="w-full rounded-2xl border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] px-5 py-4 text-base font-bold text-[#f8f6f1] outline-none transition placeholder:text-[#f8f6f1]/25 focus:border-[#c89455]/50 focus:bg-[#f8f6f1]/[0.09] sm:text-lg"
               />
             )}
 
@@ -839,7 +844,7 @@ export default function InquiryPage() {
                 placeholder={currentQuestion.placeholder}
                 autoFocus
                 rows={6}
-                className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.06] px-5 py-4 text-base font-bold leading-7 text-white outline-none transition placeholder:text-white/25 focus:border-accent/50 focus:bg-white/[0.09]"
+                className="w-full resize-none rounded-2xl border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] px-5 py-4 text-base font-bold leading-7 text-[#f8f6f1] outline-none transition placeholder:text-[#f8f6f1]/25 focus:border-[#c89455]/50 focus:bg-[#f8f6f1]/[0.09]"
               />
             )}
 
@@ -855,8 +860,8 @@ export default function InquiryPage() {
                       onClick={() => updateField(currentQuestion.key, option)}
                       className={`group flex min-h-[64px] items-center justify-between rounded-2xl border px-5 py-4 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 sm:text-base ${
                         selected
-                          ? "border-accent bg-accent text-brand"
-                          : "border-white/10 bg-white/[0.06] text-white hover:border-accent/40 hover:bg-white/[0.09]"
+                          ? "border-[#c89455] bg-[#c89455] text-[#081523]"
+                          : "border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-[#f8f6f1] hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.09]"
                       }`}
                     >
                       <span>{option}</span>
@@ -864,8 +869,8 @@ export default function InquiryPage() {
                       <span
                         className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition ${
                           selected
-                            ? "border-brand bg-brand text-accent"
-                            : "border-white/15 text-white/25 group-hover:border-accent group-hover:text-accent"
+                            ? "border-[#081523] bg-[#081523] text-[#c89455]"
+                            : "border-[#f8f6f1]/15 text-[#f8f6f1]/25 group-hover:border-[#c89455] group-hover:text-[#c89455]"
                         }`}
                       >
                         {selected && <FiCheck size={13} aria-hidden="true" />}
@@ -893,8 +898,8 @@ export default function InquiryPage() {
                       }
                       className={`group flex min-h-[64px] items-center justify-between rounded-2xl border px-5 py-4 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 sm:text-base ${
                         selected
-                          ? "border-accent bg-accent text-brand"
-                          : "border-white/10 bg-white/[0.06] text-white hover:border-accent/40 hover:bg-white/[0.09]"
+                          ? "border-[#c89455] bg-[#c89455] text-[#081523]"
+                          : "border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-[#f8f6f1] hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.09]"
                       }`}
                     >
                       <span>{option}</span>
@@ -902,8 +907,8 @@ export default function InquiryPage() {
                       <span
                         className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition ${
                           selected
-                            ? "border-brand bg-brand text-accent"
-                            : "border-white/15 text-white/25 group-hover:border-accent group-hover:text-accent"
+                            ? "border-[#081523] bg-[#081523] text-[#c89455]"
+                            : "border-[#f8f6f1]/15 text-[#f8f6f1]/25 group-hover:border-[#c89455] group-hover:text-[#c89455]"
                         }`}
                       >
                         {selected && <FiCheck size={13} aria-hidden="true" />}
@@ -926,7 +931,7 @@ export default function InquiryPage() {
               type="button"
               onClick={previousStep}
               disabled={step === 0}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:border-accent/40 hover:text-accent disabled:cursor-not-allowed disabled:opacity-30"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#f8f6f1] transition hover:border-[#c89455]/40 hover:text-[#c89455] disabled:cursor-not-allowed disabled:opacity-30"
             >
               <FiArrowLeft aria-hidden="true" />
               Back
@@ -935,7 +940,7 @@ export default function InquiryPage() {
             <button
               type="button"
               onClick={nextStep}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand transition hover:-translate-y-0.5 hover:bg-white"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c89455] px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#081523] transition hover:-translate-y-0.5 hover:bg-[#f8f6f1]"
             >
               {isLastStep ? "Submit Questionnaire" : "Next"}
               {isLastStep ? (
@@ -947,7 +952,7 @@ export default function InquiryPage() {
           </div>
         </motion.div>
 
-        <p className="mx-auto mt-6 max-w-2xl text-center text-xs font-medium leading-5 text-white/35">
+        <p className="mx-auto mt-6 max-w-2xl text-center text-xs font-medium leading-5 text-[#f8f6f1]/35">
           After submitting, I’ll review your answers and follow up with the best
           next step for your website project.
         </p>
