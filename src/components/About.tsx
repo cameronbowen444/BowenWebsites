@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  FiArrowUpRight,
-  FiCheckCircle,
-  FiHeart,
-  FiTarget,
-} from "react-icons/fi";
+import { FiArrowUpRight, FiHeart } from "react-icons/fi";
 import { scrollToSection } from "@/lib/scrollToSection";
 
 const About = () => {
@@ -20,7 +15,6 @@ const About = () => {
       <div className="pointer-events-none absolute bottom-[-20%] right-[-15%] h-[420px] w-[420px] rounded-full bg-[#12345a]/30 blur-3xl text-center" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
-        {/* Top Label */}
         {/* Header */}
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-[#c89455]">

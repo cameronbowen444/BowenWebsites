@@ -1,15 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { type SyntheticEvent, useState } from "react";
 import { motion } from "framer-motion";
 
-import {
-  FiArrowUpRight,
-  FiCheck,
-  FiMail,
-  FiPhone,
-  FiSend,
-} from "react-icons/fi";
+import { FiArrowUpRight, FiMail, FiPhone, FiSend } from "react-icons/fi";
 
 type FormData = {
   name: string;
@@ -20,6 +14,8 @@ type FormData = {
 };
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
+
+type Status = "idle" | "loading" | "success" | "error";
 
 const initialFormData: FormData = {
   name: "",
@@ -34,24 +30,28 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const Contact = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
 
   const validateForm = () => {
     const nextErrors: FormErrors = {};
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
 
-    if (!formData.name.trim()) {
+    if (!name) {
       nextErrors.name = "Full name is required.";
     }
 
-    if (!formData.email.trim()) {
+    if (!email) {
       nextErrors.email = "Email is required.";
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (!emailRegex.test(email)) {
       nextErrors.email = "Enter a valid email address.";
     }
 
-    if (!formData.message.trim()) {
+    if (!message) {
       nextErrors.message = "Please tell me a little about the project.";
-    } else if (formData.message.trim().length < 10) {
+    } else if (message.length < 10) {
       nextErrors.message = "Message should be at least 10 characters.";
     }
 
@@ -61,32 +61,62 @@ const Contact = () => {
   };
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = event.target;
+    const { name, value } = event.currentTarget;
 
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
+    setErrors((prev) => {
+      if (!prev[name as keyof FormData]) return prev;
+
+      return {
+        ...prev,
+        [name]: "",
+      };
+    });
 
     setStatus("idle");
+    setStatusMessage("");
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!validateForm()) return;
 
-    console.log("Contact form submitted:", formData);
+    setStatus("loading");
+    setStatusMessage("");
 
-    setStatus("success");
-    setFormData(initialFormData);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = (await response.json()) as { message?: string };
+
+      if (!response.ok) {
+        throw new Error(data.message || "Message failed to send.");
+      }
+
+      setStatus("success");
+      setStatusMessage("Message sent. I’ll reach out after reviewing it.");
+      setFormData(initialFormData);
+    } catch (error) {
+      setStatus("error");
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+    }
   };
 
   return (
@@ -298,12 +328,12 @@ const Contact = () => {
                   <textarea
                     id="message"
                     name="message"
-                    rows={5}
+                    rows={3}
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell me about your business, the website you want, colors you like, pages you need, or example websites..."
                     aria-invalid={!!errors.message}
-                    className={`w-full resize-none border-0 border-b bg-transparent px-0 text-sm text-[#f8f6f1] outline-none transition placeholder:text-[#f8f6f1]/25 focus:border-[#c89455] ${
+                    className={`w-full resize-none border-0 border-b bg-transparent px-0 py-2.5 text-sm leading-6 text-[#f8f6f1] outline-none transition placeholder:text-[#f8f6f1]/25 focus:border-[#c89455] ${
                       errors.message
                         ? "border-red-400"
                         : "border-[#f8f6f1]/25"
@@ -317,20 +347,30 @@ const Contact = () => {
                   )}
                 </div>
 
-                {status === "success" && (
-                  <div className="rounded-xl border border-[#c89455]/30 bg-[#c89455]/10 px-4 py-3">
-                    <p className="text-xs font-bold text-[#c89455]">
-                      Message ready. Connect this form to Resend or your API
-                      route next.
+                {status !== "idle" && status !== "loading" && (
+                  <div
+                    className={`rounded-xl px-4 py-3 ${
+                      status === "success"
+                        ? "border border-[#c89455]/30 bg-[#c89455]/10"
+                        : "border border-red-400/30 bg-red-400/10"
+                    }`}
+                  >
+                    <p
+                      className={`text-xs font-bold ${
+                        status === "success" ? "text-[#c89455]" : "text-red-400"
+                      }`}
+                    >
+                      {statusMessage}
                     </p>
                   </div>
                 )}
 
                 <button
                   type="submit"
-                  className="group flex w-full items-center justify-center gap-2 rounded-full border border-[#c89455]/50 bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#f8f6f1] transition hover:border-[#c89455] hover:bg-[#c89455] hover:text-[#081523]"
+                  disabled={status === "loading"}
+                  className="group flex w-full items-center justify-center gap-2 rounded-full border border-[#c89455]/50 bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#f8f6f1] transition hover:border-[#c89455] hover:bg-[#c89455] hover:text-[#081523] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Send Message
+                  {status === "loading" ? "Sending..." : "Send Message"}
 
                   <span className="transition group-hover:translate-x-1 group-hover:-translate-y-1">
                     <FiArrowUpRight aria-hidden="true" />

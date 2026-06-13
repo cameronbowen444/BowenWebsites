@@ -117,9 +117,16 @@ const Work = () => {
               <motion.article
                 key={project.title}
                 initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.45, delay: index * 0.05 },
+                }}
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.3 },
+                }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.45, delay: index * 0.05 }}
                 role="link"
                 tabIndex={0}
                 onClick={() => openProjectWebsite(project.website)}
@@ -129,7 +136,7 @@ const Work = () => {
                     openProjectWebsite(project.website);
                   }
                 }}
-                className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.4rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#c89455]/45"
+                className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.4rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl transition-[border-color] duration-300 hover:border-[#c89455]/45"
               >
                 {/* Image */}
                 <div className="relative h-56 overflow-hidden bg-[#102d4d] pb-px">

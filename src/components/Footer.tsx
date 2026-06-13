@@ -2,18 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { scrollToSection } from "@/lib/scrollToSection";
 
 import {
-  FiArrowUpRight,
   FiCode,
   FiGithub,
   FiInstagram,
   FiLayers,
   FiMail,
   FiPhone,
-  FiZap,
 } from "react-icons/fi";
 
 const footerLinks = [

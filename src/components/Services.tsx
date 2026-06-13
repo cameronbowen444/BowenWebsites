@@ -155,9 +155,10 @@ const Services = () => {
                 key={service.title}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -4 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="relative rounded-[1.5rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.07] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.09]"
+                className="relative rounded-[1.5rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.07] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl transition-[border-color,background-color,box-shadow] duration-300 hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.09] hover:shadow-[0_18px_60px_rgba(0,0,0,0.2)]"
               >
                 <div className="absolute -top-5 left-5 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#f8f6f1]/10 bg-[#c89455] text-lg text-[#081523] shadow-[0_14px_30px_rgba(200,148,85,0.18)]">
                   <Icon aria-hidden="true" />

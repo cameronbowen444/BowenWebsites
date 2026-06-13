@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useAnimationFrame } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 
 const landingPages = [
   {
@@ -30,6 +30,7 @@ const repeatedPages = Array.from({ length: COPIES }, () => landingPages).flat();
 const Hero = () => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const isInteractingRef = useRef(false);
+  const isReadyRef = useRef(false);
 
   const getSingleSetWidth = useCallback(() => {
     const scroller = scrollerRef.current;
@@ -40,7 +41,7 @@ const Hero = () => {
 
   const keepScrollLooping = useCallback(() => {
     const scroller = scrollerRef.current;
-    if (!scroller) return;
+    if (!scroller || !isReadyRef.current) return;
 
     const singleSetWidth = getSingleSetWidth();
     if (!singleSetWidth) return;
@@ -54,7 +55,7 @@ const Hero = () => {
     }
   }, [getSingleSetWidth]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
@@ -63,16 +64,22 @@ const Hero = () => {
       if (!singleSetWidth) return;
 
       scroller.scrollLeft = singleSetWidth * Math.floor(COPIES / 2);
+      isReadyRef.current = true;
     };
+
+    setToMiddle();
 
     const frame = requestAnimationFrame(setToMiddle);
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      isReadyRef.current = false;
+    };
   }, [getSingleSetWidth]);
 
   useAnimationFrame(() => {
     const scroller = scrollerRef.current;
-    if (!scroller || isInteractingRef.current) return;
+    if (!scroller || !isReadyRef.current || isInteractingRef.current) return;
 
     const singleSetWidth = getSingleSetWidth();
     if (!singleSetWidth) return;
@@ -110,7 +117,6 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen overflow-hidden bg-[#081523] px-4 pb-20 pt-28 text-white sm:px-6 lg:px-8"
     >
-      
       {/* Header */}
       <div className="relative z-10 mx-auto mb-12 max-w-3xl text-center">
         <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#f8f6f1]/15 bg-[#f8f6f1]/10 shadow-[0_18px_55px_rgba(0,0,0,0.2)] backdrop-blur-xl">

@@ -177,10 +177,17 @@ const Pricing = () => {
               <motion.article
                 key={item.title}
                 initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: index * 0.06, duration: 0.4 },
+                }}
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.3 },
+                }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: index * 0.06, duration: 0.4 }}
-                className="rounded-[1.15rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.065] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.085]"
+                className="rounded-[1.15rem] border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.065] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.2)] backdrop-blur-xl transition-[border-color,background-color] duration-300 hover:border-[#c89455]/40 hover:bg-[#f8f6f1]/[0.085]"
               >
                 <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl border border-[#f8f6f1]/10 bg-[#102d4d] text-base text-[#c89455]">
                   <Icon aria-hidden="true" />

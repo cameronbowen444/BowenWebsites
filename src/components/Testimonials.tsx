@@ -1,7 +1,7 @@
 "use client";
 
 import { useAnimationFrame } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 import { FiArrowUpRight, FiStar, FiUser } from "react-icons/fi";
 
 import { scrollToSection } from "@/lib/scrollToSection";
@@ -58,6 +58,7 @@ const stars = Array.from({ length: 5 });
 const Testimonials = () => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const isInteractingRef = useRef(false);
+  const isReadyRef = useRef(false);
 
   const getSingleSetWidth = useCallback(() => {
     const scroller = scrollerRef.current;
@@ -68,7 +69,7 @@ const Testimonials = () => {
 
   const keepScrollLooping = useCallback(() => {
     const scroller = scrollerRef.current;
-    if (!scroller) return;
+    if (!scroller || !isReadyRef.current) return;
 
     const singleSetWidth = getSingleSetWidth();
     if (!singleSetWidth) return;
@@ -82,7 +83,7 @@ const Testimonials = () => {
     }
   }, [getSingleSetWidth]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
@@ -91,16 +92,22 @@ const Testimonials = () => {
       if (!singleSetWidth) return;
 
       scroller.scrollLeft = singleSetWidth * Math.floor(COPIES / 2);
+      isReadyRef.current = true;
     };
+
+    setToMiddle();
 
     const frame = requestAnimationFrame(setToMiddle);
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      isReadyRef.current = false;
+    };
   }, [getSingleSetWidth]);
 
   useAnimationFrame(() => {
     const scroller = scrollerRef.current;
-    if (!scroller || isInteractingRef.current) return;
+    if (!scroller || !isReadyRef.current || isInteractingRef.current) return;
 
     const singleSetWidth = getSingleSetWidth();
     if (!singleSetWidth) return;
