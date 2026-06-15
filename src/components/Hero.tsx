@@ -144,7 +144,7 @@ const Hero = () => {
 
         <div className="mx-auto mt-7 flex w-fit items-center gap-2 rounded-full border border-[#f8f6f1]/15 bg-[#f8f6f1]/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#f8f6f1]/65 shadow-sm backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-[#c89455]" />
-          One Price, No BS
+          Transparent Pricing
         </div>
       </div>
 

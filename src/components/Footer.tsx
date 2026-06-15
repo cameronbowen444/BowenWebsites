@@ -76,7 +76,7 @@ const Footer = () => {
 
             <div className="mt-5 flex gap-2">
               <a
-                href="mailto:cameronbowen555@gmail.com"
+                href="mailto:cameronbowen888@gmail.com"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-base text-[#f8f6f1]/70 transition hover:bg-[#c89455] hover:text-[#081523]"
                 aria-label="Email Bowen Websites"
               >
@@ -84,7 +84,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="tel:+15555555555"
+                href="tel:+18182927352"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-base text-[#f8f6f1]/70 transition hover:bg-[#c89455] hover:text-[#081523]"
                 aria-label="Call Bowen Websites"
               >
@@ -92,7 +92,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://github.com/"
+                href="https://github.com/cameronbowen444"
                 target="_blank"
                 rel="noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-base text-[#f8f6f1]/70 transition hover:bg-[#c89455] hover:text-[#081523]"
@@ -102,7 +102,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://instagram.com/"
+                href="https://www.instagram.com/bowenwebsites/"
                 target="_blank"
                 rel="noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#f8f6f1]/10 bg-[#f8f6f1]/[0.06] text-base text-[#f8f6f1]/70 transition hover:bg-[#c89455] hover:text-[#081523]"
@@ -160,7 +160,7 @@ const Footer = () => {
 
             <div className="space-y-3 text-xs font-bold text-[#f8f6f1]/45 sm:text-sm">
               <a
-                href="mailto:cameronbowen555@gmail.com"
+                href="mailto:cameronbowen888@gmail.com"
                 className="flex items-center gap-2.5 transition hover:text-[#f8f6f1]"
               >
                 <span className="text-[#c89455]">
@@ -170,7 +170,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="tel:+15555555555"
+                href="tel:+18182927352"
                 className="flex items-center gap-2.5 transition hover:text-[#f8f6f1]"
               >
                 <span className="text-[#c89455]">
@@ -198,11 +198,10 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col justify-between gap-3 border-t border-[#f8f6f1]/10 py-5 text-[11px] font-bold text-[#f8f6f1]/30 sm:flex-row">
-          <p>© 2026 Bowen Websites. Built by Cameron Bowen.</p>
+          <p>© 2026 Built by Bowen Websites</p>
 
           <div className="flex flex-wrap gap-3">
             <p>Websites start at $750</p>
-            <p>Standard builds capped at $1,500</p>
             <p>Custom design included</p>
           </div>
         </div>

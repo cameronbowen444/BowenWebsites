@@ -20,7 +20,7 @@ const includedFeatures = [
   "Custom contact or inquiry form",
   "Branding direction",
   "Organic SEO basics",
-  "Social media link preview",
+  "8 pages included",
   "Clean animations included",
   "Custom styling for your business",
   "Built around your goals",

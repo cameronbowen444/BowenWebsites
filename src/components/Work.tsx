@@ -30,7 +30,7 @@ const projects: Project[] = [
     category: "Business Website",
     price: "$750",
     image: "/assets/land4.png",
-    website: "https://your-bowen-records-site.com",
+    website: "https://bowenrecords.com",
     description: "A clean website for a local record store.",
   },
   {
@@ -39,7 +39,7 @@ const projects: Project[] = [
     category: "Business Website",
     price: "$750",
     image: "/assets/land1.png",
-    website: "https://your-luxury-chauffeur-site.com",
+    website: "https://diamondwings369.com",
     description: "A premium site built for quotes and calls.",
   },
   {
@@ -48,7 +48,7 @@ const projects: Project[] = [
     category: "Custom Website",
     price: "$750",
     image: "/assets/land3.png",
-    website: "https://your-herbal-website.com",
+    website: "https://purple-leaf-herbs.vercel.app/",
     description: "A warm website with blog and email signup.",
   },
   {
@@ -57,7 +57,7 @@ const projects: Project[] = [
     category: "Custom Website",
     price: "$750",
     image: "/assets/land2.png",
-    website: "https://your-car-sales-rentals-site.com",
+    website: "https://diamondwingsautos.com",
     description: "A vehicle site with listings and inquiry flow.",
   },
 ];
