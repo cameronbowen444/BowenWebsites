@@ -15,16 +15,16 @@ const reviews = [
       "Cameron made the website feel premium right away. It gave my business a cleaner image and made it easier for people to send in serious inquiries.",
   },
   {
-    name: "Maria L.",
+    name: "Mike B.",
     role: "Local Service Owner",
-    avatar: "ML",
+    avatar: "MB",
     quote:
       "The site looked custom, modern, and easy to use. I liked that the design actually matched the business instead of feeling like a template.",
   },
   {
-    name: "Andre T.",
+    name: "Dina Brooke.",
     role: "Retail Brand Owner",
-    avatar: "AT",
+    avatar: "DB",
     quote:
       "The product layout, cart flow, and branding made the store feel much more professional. It felt like something customers could trust.",
   },
@@ -36,16 +36,16 @@ const reviews = [
       "Everything was clear from the beginning. The site explained what we offer, looked great on mobile, and made contacting us simple.",
   },
   {
-    name: "James K.",
+    name: "Kim B.",
     role: "Operations Manager",
-    avatar: "JK",
+    avatar: "KB",
     quote:
       "The custom system made the business feel more organized. It was built around how we actually work, not just some generic dashboard.",
   },
   {
-    name: "Sofia M.",
+    name: "Blaine B.",
     role: "Startup Founder",
-    avatar: "SM",
+    avatar: "BB",
     quote:
       "The design helped the brand look more serious online. It gave us a polished first impression without overcomplicating the site.",
   },
