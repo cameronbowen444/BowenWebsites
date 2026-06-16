@@ -201,7 +201,8 @@ const Footer = () => {
           <p>© 2026 Built by Bowen Websites</p>
 
           <div className="flex flex-wrap gap-3">
-            <p>Websites start at $750</p>
+            <p>Websites start at $299</p>
+            <p>Capped at $499</p>
             <p>Custom design included</p>
           </div>
         </div>

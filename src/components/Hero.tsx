@@ -122,7 +122,7 @@ const Hero = () => {
         <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#f8f6f1]/15 bg-[#f8f6f1]/10 shadow-[0_18px_55px_rgba(0,0,0,0.2)] backdrop-blur-xl">
           <div className="flex items-end gap-1">
             <span className="h-5 w-4 rounded-sm bg-[#f8f6f1]" />
-            <span className="h-7 w-4 rounded-sm bg-[#12345a]" />
+            <span className="h-7 w-4 rounded-sm bg-[#205797]" />
             <span className="h-4 w-4 rounded-sm bg-[#c89455]" />
           </div>
         </div>

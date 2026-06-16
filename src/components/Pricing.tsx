@@ -98,22 +98,27 @@ const Pricing = () => {
 
                 <div className="mb-4 inline-flex rounded-full border border-[#c89455]/25 bg-[#c89455]/10 px-3 py-1">
                   <p className="text-[9px] font-black uppercase tracking-[0.16em] text-[#c89455]">
-                    No Limitations
+                    No card needed till your website is complete.
                   </p>
                 </div>
 
                 <h3 className="text-2xl font-black uppercase leading-none tracking-[-0.04em] text-[#f8f6f1] sm:text-3xl">
-                  Get Everything You Want In Your Website
+                  Get Everything You Want. 
                 </h3>
 
                 <div className="mt-7">
                   <p className="text-7xl font-black leading-none tracking-[-0.08em] text-[#f8f6f1] sm:text-8xl">
-                    $750
+                    $299
                   </p>
 
                   <p className="mt-2 text-[10px] font-black uppercase tracking-[0.16em] text-[#f8f6f1]/40">
-                    Build price
+                    Starting price
                   </p>
+                  <div className="mb-4 inline-flex rounded-full border border-[#c89455]/25 bg-[#c89455]/10 px-3 py-1">
+                    <p className="text-[9px] font-black uppercase tracking-[0.16em] text-[#c89455]">
+                      Highest price is $499
+                    </p>
+                  </div>
                 </div>
 
                 <button
@@ -223,7 +228,7 @@ const Pricing = () => {
             onClick={() => scrollToSection("#contact")}
             className="inline-flex items-center gap-2 rounded-full bg-[#c89455] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#081523] transition hover:-translate-y-0.5 hover:bg-[#f8f6f1]"
           >
-            Start For $750
+            Start For $299
             <FiArrowUpRight aria-hidden="true" />
           </button>
         </div>
